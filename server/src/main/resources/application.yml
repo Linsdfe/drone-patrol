@@ -1,0 +1,53 @@
+# 服务器配置
+server:
+  port: 8080  # 服务端口
+
+# Spring配置
+spring:
+  application:
+    name: drone-patrol-server  # 应用名称
+
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver  # 数据库驱动
+    url: jdbc:mysql://localhost:3306/drone_patrol?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true  # 数据库连接URL
+    username: root  # 数据库用户名
+    password: 123456  # 数据库密码
+
+  # Redis配置
+  redis:
+    host: localhost  # Redis主机
+    port: 6379  # Redis端口
+    database: 0  # Redis数据库
+    timeout: 5000ms  # 连接超时时间
+    lettuce:
+      pool:
+        max-active: 8  # 最大连接数
+        max-wait: -1ms  # 最大等待时间
+        max-idle: 8  # 最大空闲连接数
+        min-idle: 0  # 最小空闲连接数
+
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml  # Mapper文件位置
+  type-aliases-package: com.drone.patrol.entity  # 实体类包路径
+  configuration:
+    map-underscore-to-camel-case: true  # 下划线转驼峰
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 日志实现
+  global-config:
+    db-config:
+      id-type: auto  # ID生成策略
+      logic-delete-field: deleted  # 逻辑删除字段
+      logic-delete-value: 1  # 逻辑删除值
+      logic-not-delete-value: 0  # 逻辑未删除值
+
+# JWT配置
+jwt:
+  secret: drone-patrol-secret-key-2024-very-long-secret-key-for-jwt-token-generation  # JWT密钥
+  expiration: 86400000  # JWT过期时间（毫秒）
+
+# 智谱AI配置
+zhipu:
+  api-key: aa78d15cdb5b47529bf713d4db199d3c.cMoyZZ76PdmQhxMq  # 智谱AI API密钥
+  base-url: https://open.bigmodel.cn/api/paas/v4/chat/completions  # 智谱AI API地址
+  model: glm-4-flash  # 智谱AI模型
